@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印刷级 A4 矢量工程蓝图与建筑解剖海报 · Anatomy</title>
+<style>
+:root {
+  --bg: #0d0e11;
+  --card: #15171c;
+  --border: rgba(255,255,255,0.1);
+  --ink: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #f59e0b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.bp-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(21,23,28,0.88);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.bp-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.bp-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: rgba(245,158,11,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(245,158,11,0.35);
+}
+.bp-wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+.bp-intro {
+  margin-bottom: 24px;
+}
+.bp-intro h1 {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 3.2vw, 32px);
+}
+.bp-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.bp-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.bp-tab {
+  appearance: none;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.bp-tab:hover, .bp-tab[data-active] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(245,158,11,0.1);
+}
+.bp-viewer {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 920px) {
+  .bp-viewer { grid-template-columns: 1fr; }
+}
+.bp-frame-box {
+  background: #e5e5e0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+}
+.bp-frame-box iframe {
+  width: 100%;
+  height: 820px;
+  border: 0;
+  display: block;
+  background: #fff;
+}
+.bp-side {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.bp-side h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.bp-side p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.bp-dl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bp-dl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12.5px;
+  transition: all .15s ease;
+}
+.bp-dl:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(245,158,11,0.08);
+}
+.bp-dl span:last-child {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+</style>
+</head>
+<body>
+  <header class="bp-header">
+    <div class="bp-title">
+      <span class="bp-tag">能力 04 · 印刷级 A4 工程蓝图与海报</span>
+      <span>矢量 SVG 烘焙排版 + 原生 A4 PDF 直出</span>
+    </div>
+    <div>
+      <a class="bp-tab" href="showcase.html" style="text-decoration:none">🏛️ 返回五大能力总展厅</a>
+    </div>
+  </header>
+
+  <main class="bp-wrap">
+    <div class="bp-intro">
+      <h1>印刷级 A4 工程蓝图 / 建筑解剖海报（直出矢量 PDF）</h1>
+      <p>
+        通过 <code>scripts/print.mjs</code> 驱动无头浏览器捕捉实时等轴测模型的多个姿态，自动排入带图框、关键指标带、自动避让引线标注（Numbered Pins）、BOM 零件表与分步亮显图的白底 A4 纸张，直出无限放大不失真的矢量 PDF。
+      </p>
+    </div>
+
+    <div class="bp-tabs">
+      <button type="button" class="bp-tab" data-src="sagrada-familia-poster-a4.html" data-active>📄 圣家族大教堂 · A4 解剖海报 (Poster)</button>
+      <button type="button" class="bp-tab" data-src="sagrada-familia-drawing-a4.html">📐 圣家族大教堂 · A4 工程图纸 (Drawing)</button>
+      <button type="button" class="bp-tab" data-src="raptor-engine-poster-a4.pdf">🚀 SpaceX 猛禽发动机 · A4 海报 PDF</button>
+      <button type="button" class="bp-tab" data-src="raptor-engine-drawing-a4.pdf">🔧 SpaceX 猛禽发动机 · A4 工程图 PDF</button>
+      <button type="button" class="bp-tab" data-src="raptor-engine-detailed-a4.pdf">📘 SpaceX 猛禽发动机 · 3页详图手册 PDF</button>
+    </div>
+
+    <div class="bp-viewer">
+      <div class="bp-frame-box">
+        <iframe id="bp-iframe" src="sagrada-familia-poster-a4.html" title="A4 工程蓝图预览"></iframe>
+      </div>
+
+      <aside class="bp-side">
+        <h3>📥 原生矢量 A4 PDF 下载与直阅</h3>
+        <p>所有 PDF 均为矢量线条（WebGL 尾焰自动合成 2× 透明图层），可直接用于激光打印、教室挂图或工程手册装订：</p>
+        <div class="bp-dl-list">
+          <a class="bp-dl" href="sagrada-familia-poster-a4.pdf" target="_blank">
+            <span>🏛️ 圣家族大教堂 · A4 海报版</span>
+            <span>PDF · 1.3 MB ↗</span>
+          </a>
+          <a class="bp-dl" href="sagrada-familia-drawing-a4.pdf" target="_blank">
+            <span>📐 圣家族大教堂 · A4 工程制图版</span>
+            <span>PDF · 3.7 MB ↗</span>
+          </a>
+          <a class="bp-dl" href="sagrada-familia-poster-a4.png" target="_blank">
+            <span>🖼️ 圣家族大教堂 · A4 海报高清图</span>
+            <span>PNG 预览 ↗</span>
+          </a>
+          <a class="bp-dl" href="sagrada-familia-drawing-a4.png" target="_blank">
+            <span>🖼️ 圣家族大教堂 · A4 工程制图高清图</span>
+            <span>PNG 预览 ↗</span>
+          </a>
+          <a class="bp-dl" href="raptor-engine-poster-a4.pdf" target="_blank">
+            <span>🚀 SpaceX 猛禽 2 号 · A4 海报版</span>
+            <span>PDF · 613 KB ↗</span>
+          </a>
+          <a class="bp-dl" href="raptor-engine-drawing-a4.pdf" target="_blank">
+            <span>🔧 SpaceX 猛禽 2 号 · A4 工程制图版</span>
+            <span>PDF · 2.9 MB ↗</span>
+          </a>
+          <a class="bp-dl" href="raptor-engine-detailed-a4.pdf" target="_blank">
+            <span>📘 SpaceX 猛禽 2 号 · 3页深度解析手册</span>
+            <span>PDF · 4.3 MB ↗</span>
+          </a>
+          <a class="bp-dl" href="arcade-cabinet-poster-a4.pdf" target="_blank">
+            <span>🕹️ 1981 投币街机 · A4 工程海报</span>
+            <span>PDF · 726 KB ↗</span>
+          </a>
+          <a class="bp-dl" href="push-button-poster-a4.pdf" target="_blank">
+            <span>🔘 弹簧微动按钮 · A4 工程海报</span>
+            <span>PDF · 463 KB ↗</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const tabs = [...document.querySelectorAll(".bp-tab[data-src]")];
+    const iframe = document.getElementById("bp-iframe");
+    tabs.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabs.forEach((b) => b.removeAttribute("data-active"));
+        btn.setAttribute("data-active", "");
+        iframe.src = btn.dataset.src;
+      });
+    });
+  </script>
+</body>
+</html>

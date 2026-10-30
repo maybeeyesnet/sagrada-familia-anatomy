@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anatomy 精密等轴测引擎 · 五大能力全景交互展厅</title>
+<style>
+:root {
+  --bg: #090a0d;
+  --panel: #12141a;
+  --card: #181b22;
+  --border: rgba(255,255,255,0.09);
+  --ink: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #f59e0b;
+  --accent-soft: rgba(245,158,11,0.14);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.sc-top {
+  background: rgba(18,20,26,0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.sc-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.sc-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.sc-badge {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(245,158,11,0.35);
+}
+.sc-QuickActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sc-action-btn {
+  appearance: none;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+.sc-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.sc-cats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+@media (max-width: 980px) {
+  .sc-cats {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .sc-cat {
+    min-width: 210px;
+  }
+}
+.sc-cat {
+  appearance: none;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.sc-cat:hover {
+  border-color: rgba(245,158,11,0.5);
+}
+.sc-cat[data-active] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.sc-cat-num {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10.5px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 2px;
+}
+.sc-cat-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sc-subbar {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sc-subs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sc-sub {
+  appearance: none;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.sc-sub:hover {
+  color: var(--ink);
+  background: rgba(255,255,255,0.04);
+}
+.sc-sub[data-active] {
+  color: var(--accent);
+  border-color: rgba(245,158,11,0.4);
+  background: var(--accent-soft);
+}
+.sc-desc {
+  font-size: 12px;
+  color: var(--muted);
+}
+.sc-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.sc-iframe {
+  flex: 1;
+  width: 100%;
+  min-height: calc(100vh - 140px);
+  border: 0;
+  background: #0d0e11;
+}
+</style>
+</head>
+<body>
+  <div class="sc-top">
+    <div class="sc-header-row">
+      <div class="sc-brand">
+        <span class="sc-badge">ANATOMY 全景展厅</span>
+        <span>除了轴测爆炸图，它还能生成的 5 大类交互工程作品（点击下方分类直接交互）</span>
+      </div>
+      <div class="sc-QuickActions">
+        <button type="button" class="sc-action-btn" id="theme-toggle">☀️ 切换浅色主题</button>
+        <a class="sc-action-btn" id="open-standalone" href="dial-indicator.html" target="_blank">↗ 独立全屏打开当前作品</a>
+        <a class="sc-action-btn" href="index.html">🏛️ 圣家族大教堂(368件实景版)</a>
+      </div>
+    </div>
+
+    <div class="sc-cats" id="cat-list"></div>
+  </div>
+
+  <div class="sc-subbar">
+    <div class="sc-subs" id="sub-list"></div>
+    <div class="sc-desc" id="sub-desc"></div>
+  </div>
+
+  <div class="sc-stage">
+    <iframe class="sc-iframe" id="main-frame" src="dial-indicator.html" title="Anatomy Interactive Showcase"></iframe>
+  </div>
+
+  <script>
+    const CATALOG = [
+      {
+        id: "cat1",
+        num: "01 · 真实物理传动",
+        name: "可联动操作的机械与仪表仿真器",
+        items: [
+          {
+            title: "1A · 千分表与阶梯量块联动台",
+            dark: "dial-indicator.html",
+            light: "dial-indicator-light.html",
+            desc: "左右滑动底座滑台，探针随阶梯量块升降，齿轮带动表盘指针按 20px/圈 真实偏转读数"
+          },
+          {
+            title: "1B · 360° 全向机械密码转盘与机械手",
+            dark: "turning-dial.html",
+            light: "turning-dial-light.html",
+            desc: "拖动转盘任意 360° 旋转，全部三维零件每帧实时重算投影与明暗（按 B 键崩飞舱盖）"
+          },
+          {
+            title: "1C · 工业弹簧微动按钮开关",
+            dark: "push-button.html",
+            light: "push-button-light.html",
+            desc: "按住按钮不放，螺旋弹簧真实压缩变形，紫铜动触桥下落闭合 1.5V 电路并点亮灯泡"
+          }
+        ]
+      },
+      {
+        id: "cat2",
+        num: "02 · 概念实体化隐喻",
+        name: "计算机/算法概念的物理隐喻机器",
+        items: [
+          {
+            title: "2A · B+Tree档案柜 + 共识密码锁 + XY绘图仪",
+            dark: "algo-metaphor.html",
+            light: "algo-metaphor-light.html",
+            desc: "三大算法隐喻合一：抽屉拉出内存页分裂、密码锁弹簧弹子对位出舌、XY 龙门绘图仪实时画曲线"
+          },
+          {
+            title: "2B · 1981 投币街机全链路状态机",
+            dark: "arcade-cabinet.html",
+            light: "arcade-cabinet-light.html",
+            desc: "点击硬币投币：验币滑道滚落 → 拨动微动开关 → 电磁计分器跳字 → 唤醒 CRT 光栅扫描与摇杆联动"
+          },
+          {
+            title: "2C · 1984 复古台式机键盘 I/O 与显像管",
+            dark: "desk-computer.html",
+            light: "desk-computer-light.html",
+            desc: "点击键帽或敲键盘打字：58颗键帽独立下压、CRT 屏幕实时打字，点击机身观察显像管坍缩关机"
+          }
+        ]
+      },
+      {
+        id: "cat3",
+        num: "03 · WebGL 着色器混合",
+        name: "融合 WebGL 实时物理特效的等轴测图",
+        items: [
+          {
+            title: "3A · SpaceX 猛禽 2 号发动机点火与拆解台",
+            dark: "raptor-engine.html",
+            light: "raptor-engine-light.html",
+            desc: "点击【🔥 点火试车】喷射 WebGL 超音速马赫环尾焰与热浪；滑动发动机可逐级拆解 11 大涡轮泵总成"
+          },
+          {
+            title: "3B · 光学与流体水波纹焦散实验槽 (Caustics)",
+            dark: "ripple-tank.html",
+            light: "ripple-tank-light.html",
+            desc: "双层 WebGL 实时折射：水平滑动调频率(10-30Hz)、垂直滑动调波源间距，白纸实时呈现水底焦散亮线"
+          }
+        ]
+      },
+      {
+        id: "cat4",
+        num: "04 · 印刷级工程图纸",
+        name: "印刷级 A4 工程蓝图 / 解剖海报 (PDF)",
+        items: [
+          {
+            title: "4A · A4 矢量工程蓝图与海报审阅中心 (含9份PDF)",
+            dark: "blueprint-gallery.html",
+            light: "blueprint-gallery.html",
+            desc: "在线审阅【圣家族大教堂】与【猛禽发动机】A4 海报版/工程制图版/详图版，支持一键下载原生矢量 PDF"
+          },
+          {
+            title: "4B · 圣家族大教堂 A4 建筑解剖海报 (直接预览)",
+            dark: "sagrada-familia-poster-a4.html",
+            light: "sagrada-familia-poster-a4.html",
+            desc: "由 368 构件模型自动烘焙生成的 A4 矢量解剖海报，带自动避让标号引线与 10 大结构分部详解"
+          },
+          {
+            title: "4C · 圣家族大教堂 A4 工程制图蓝图 (直接预览)",
+            dark: "sagrada-familia-drawing-a4.html",
+            light: "sagrada-familia-drawing-a4.html",
+            desc: "标准工程图框排版：含主视图、合拢态与爆炸态对照插图、技术规格表与三步传力解析图"
+          }
+        ]
+      },
+      {
+        id: "cat5",
+        num: "05 · React 官网组件",
+        name: "直接嵌入 React / Next.js 官网的交互组件",
+        items: [
+          {
+            title: "5A · Linear / Stripe 风格官网落地页 (内嵌双组件)",
+            dark: "react-landing.html",
+            light: "react-landing-light.html",
+            desc: "真实演示将 <TestRigFigure /> 弹簧力学台与 <SpotPlateFigure /> SDF 液滴塞尺无缝嵌入 React 官网"
+          }
+        ]
+      }
+    ];
+
+    let catIdx = 0;
+    let itemIdx = 0;
+    let isLight = false;
+
+    const catList = document.getElementById("cat-list");
+    const subList = document.getElementById("sub-list");
+    const subDesc = document.getElementById("sub-desc");
+    const mainFrame = document.getElementById("main-frame");
+    const themeBtn = document.getElementById("theme-toggle");
+    const standaloneLink = document.getElementById("open-standalone");
+
+    function renderNav() {
+      catList.innerHTML = CATALOG.map((cat, idx) => `
+        <button type="button" class="sc-cat" data-cat="${idx}" ${idx === catIdx ? "data-active" : ""}>
+          <span class="sc-cat-num">${cat.num}</span>
+          <span class="sc-cat-name">${cat.name}</span>
+        </button>
+      `).join("");
+
+      const currentCat = CATALOG[catIdx];
+      subList.innerHTML = currentCat.items.map((it, idx) => `
+        <button type="button" class="sc-sub" data-item="${idx}" ${idx === itemIdx ? "data-active" : ""}>
+          ${it.title}
+        </button>
+      `).join("");
+
+      const currentItem = currentCat.items[itemIdx];
+      subDesc.textContent = "💡 " + currentItem.desc;
+      const targetUrl = isLight ? currentItem.light : currentItem.dark;
+      if (mainFrame.getAttribute("src") !== targetUrl) {
+        mainFrame.setAttribute("src", targetUrl);
+      }
+      standaloneLink.setAttribute("href", targetUrl);
+      themeBtn.textContent = isLight ? "🌙 切换深色主题" : "☀️ 切换浅色主题";
+
+      catList.querySelectorAll("[data-cat]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          catIdx = Number(btn.dataset.cat);
+          itemIdx = 0;
+          renderNav();
+        });
+      });
+
+      subList.querySelectorAll("[data-item]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          itemIdx = Number(btn.dataset.item);
+          renderNav();
+        });
+      });
+    }
+
+    themeBtn.addEventListener("click", () => {
+      isLight = !isLight;
+      renderNav();
+    });
+
+    renderNav();
+  </script>
+</body>
+</html>
